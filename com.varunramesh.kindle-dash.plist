@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.varunramesh.kindle-dash</string>
+
+    <!-- The STABLE launcher in ~/bin, not anything inside the code checkout: the checkout is
+         replaced from GitHub once a minute and a shell reads its own script incrementally, so
+         a loop running from inside it can be fed mixed old and new text. The launcher pulls
+         the code and runs it, and never updates itself.
+
+         A long-running --loop job rather than StartInterval: with StartInterval the measured
+         period for this workload was ~73s, not 60s, so a clock-derived slot index skipped
+         panels. The launcher sleeps to the minute boundary itself.
+
+         Replaces publish-frame.sh, whose own --loop invited a second concurrent loop - the
+         duplicate-publish bug this design exists to rule out. -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/sh</string>
+        <string>/Users/varunramesh/bin/kindle-dash-loop.sh</string>
+        <string>--loop</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- If the loop process ever dies, bring it straight back. -->
+    <key>KeepAlive</key>
+    <true/>
+    <key>ThrottleInterval</key>
+    <integer>30</integer>
+
+    <key>StandardOutPath</key>
+    <string>/Users/varunramesh/projects/kindle-dash/launchd.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/varunramesh/projects/kindle-dash/launchd.err.log</string>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/varunramesh/projects/kindle-dash</string>
+</dict>
+</plist>

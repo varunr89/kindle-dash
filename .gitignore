@@ -1,0 +1,9 @@
+# Rendered output and runtime state. The frames are published to the `main` branch at the
+# repo root; they are not versioned here, and a checkout of this branch must not touch them.
+dash-*.png
+*.png
+*.html
+*.log
+dash.conf
+.chrome-profile/
+__pycache__/
