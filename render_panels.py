@@ -49,6 +49,9 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
 PANELS = ["snow", "status", "bellevue", "menu", "blog", "hn", "xkcd"]
 ROTATE_MINUTES = 1
 
+# Keep len(PANELS) * ROTATE_MINUTES * 60 above CDN_TTL - see freshness_warning(). At a
+# 1-minute cadence that means at least six panels.
+
 REPO = os.environ.get("GH_REPO", "varunr89/kindle-dash")
 BRANCH = os.environ.get("GH_BRANCH", "main")
 RAW_BASE = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}"
